@@ -1,0 +1,85 @@
+// Green leaf area measurement using ExG with 10 cm scale and polygonal ROI
+run("Set Measurements...", "area mean standard modal min centroid center perimeter bounding fit shape feret's integrated median skewness kurtosis area_fraction stack redirect=None decimal=3");
+showMessage("Select Open Folder"); 
+openDir = getDirectory("Choose a Directory"); 
+allFiles = getFileList(openDir);
+
+// Filter for image files only
+fileList = newArray();
+for (j = 0; j < allFiles.length; j++) {
+    fileName = allFiles[j];
+    if (endsWith(fileName, ".jpg") || endsWith(fileName, ".jpeg") || 
+        endsWith(fileName, ".png") || endsWith(fileName, ".tif") || 
+        endsWith(fileName, ".tiff") || endsWith(fileName, ".bmp") || 
+        endsWith(fileName, ".gif") || endsWith(fileName, ".JPG") || 
+        endsWith(fileName, ".JPEG") || endsWith(fileName, ".PNG") || 
+        endsWith(fileName, ".TIF") || endsWith(fileName, ".TIFF") || 
+        endsWith(fileName, ".BMP") || endsWith(fileName, ".GIF")) {
+        fileList = Array.concat(fileList, fileName);
+    }
+}
+
+print("Found " + fileList.length + " image files to process");
+
+for (i = 0; i < fileList.length; i++) {
+    open(openDir + fileList[i]);
+    title = getTitle();
+    
+    // Manual scale setting (10 cm)
+    setTool("line");
+    waitForUser("Set Scale", "Draw a line that corresponds to 10 cm.");
+    List.setMeasurements;
+    StrLength = List.getValue("Length");
+    run("Set Scale...", "distance=" + StrLength + " known=10 unit=cm");
+    
+    // Use polygon tool to select ROI
+    setTool("polygon");
+    waitForUser("Select ROI", "Draw the polygon region to keep.");
+    
+    // Invert selection and fill with black to mask outside
+    run("Make Inverse");
+    setColor("black");
+    run("Fill");
+    
+    // Reset selection
+    run("Select None");
+    
+    // Duplicate for processing
+    run("Duplicate...", "title=green_processing");
+    selectWindow("green_processing");
+    
+    // --- Green leaf area measurement using ExG ---
+    run("RGB Stack");
+    run("Stack to Images");
+    
+    // Calculate ExG = G - R + G - B = 2G - R - B
+    imageCalculator("Subtract create", "Green", "Red");
+    selectWindow("Result of Green");
+    rename("G-R");
+    
+    imageCalculator("Subtract create", "Green", "Blue");
+    selectWindow("Result of Green");
+    rename("G-B");
+    
+    imageCalculator("Add create", "G-R", "G-B");
+    selectWindow("Result of G-R");
+    rename("ExG");
+    
+    // Apply threshold with manual adjustment
+    run("Threshold...");
+    setAutoThreshold("Otsu dark");
+    waitForUser("Green Leaf Detection", "Check and manually adjust the threshold for green leaf region.");
+    run("Create Selection");
+    getStatistics(areaGreen);
+    
+    // Save result
+    extension = indexOf(title, ".");
+    baseName = substring(title, 0, extension);
+    setResult("File Name", i, baseName);
+    setResult("Green Leaf Area", i, areaGreen);
+    
+    // Save Results table to CSV (overwrite each time)
+    saveAs("Results", openDir + "green_leaf_area_ExG.csv");
+    
+    close("*");
+} 

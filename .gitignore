@@ -1,6 +1,5 @@
 # ImageJ output files
 *.csv
-*.txt
 *.log
 
 # ImageJ temporary files
@@ -28,4 +27,8 @@ Thumbs.db
 
 # Sample data (if any)
 sample_images/
-test_data/ 
+test_data/
+
+# Exclude .txt files except in macros folder
+*.txt
+!macros/*.txt 

@@ -1,0 +1,67 @@
+// Yellow area measurement using Lab b-channel with 10 cm scale and polygonal ROI
+
+run("Set Measurements...", "area mean standard modal min centroid center perimeter bounding fit shape feret's integrated median skewness kurtosis area_fraction stack redirect=None decimal=3");
+
+showMessage("Select Open Folder"); 
+openDir = getDirectory("Choose a Directory"); 
+allFiles = getFileList(openDir);
+
+// Filter for image files only
+fileList = newArray();
+for (j = 0; j < allFiles.length; j++) {
+    fileName = allFiles[j];
+    if (endsWith(fileName, ".jpg") || endsWith(fileName, ".jpeg") || 
+        endsWith(fileName, ".png") || endsWith(fileName, ".tif") || 
+        endsWith(fileName, ".tiff") || endsWith(fileName, ".bmp") || 
+        endsWith(fileName, ".gif") || endsWith(fileName, ".JPG") || 
+        endsWith(fileName, ".JPEG") || endsWith(fileName, ".PNG") || 
+        endsWith(fileName, ".TIF") || endsWith(fileName, ".TIFF") || 
+        endsWith(fileName, ".BMP") || endsWith(fileName, ".GIF")) {
+        fileList = Array.concat(fileList, fileName);
+    }
+}
+
+print("Found " + fileList.length + " image files to process");
+
+for (i = 0; i < fileList.length; i++) {
+    open(openDir + fileList[i]);
+    title = getTitle();
+
+    // Manual scale setting
+    setTool("line");
+    waitForUser("Set Scale", "Draw a line that corresponds to 10 cm.");
+    List.setMeasurements;
+    StrLength = List.getValue("Length");
+    run("Set Scale...", "distance=" + StrLength + " known=10 unit=cm");
+
+    // Use polygon tool to select ROI
+    setTool("polygon");
+    waitForUser("Select ROI", "Draw the polygon region to keep.");
+
+    // Invert selection and fill with black to mask outside
+    run("Make Inverse");
+    setColor("black");
+    run("Fill");
+
+    // Reset selection
+    run("Select None");
+
+    // Convert to Lab and select b-channel
+    run("Lab Stack");
+    setSlice(3); // b-channel
+
+    run("Threshold...");
+    setAutoThreshold("Otsu dark");
+    waitForUser("Yellow Area", "Confirm the yellow area on b-channel.");
+    run("Create Selection");
+    getStatistics(areaYellow);
+
+    // Save result
+    extension = indexOf(title, ".");
+    baseName = substring(title, 0, extension);
+    setResult("File Name", i, baseName);
+    setResult("Yellow Area (b-channel)", i, areaYellow);
+
+    saveAs("Results", openDir + "yellow_area_lab_b.csv");
+    close("*");
+} 
