@@ -1,162 +1,163 @@
-# ImageJ マクロ集 - 植物画像解析
+# ImageJ Macro Collection - Plant Image Analysis
 
-このリポジトリには、植物画像の解析に使用するImageJマクロが含まれています。
+This repository contains ImageJ macros for plant image analysis.
 
-## 概要
+**📖 日本語版: [README_JP.md](README_JP.md)**
 
-このリポジトリには以下の2つのマクロが含まれています：
+## Overview
 
-1. **AreaCalculationExG.txt** - 緑色の葉面積を測定するマクロ
-2. **AreaCalculationUsingBOfLabForStem.txt** - 黄色い茎の面積を測定するマクロ
+This repository contains the following two ImageJ macros:
 
-## 必要なソフトウェア
+1. **AreaCalculationExG.txt** - Macro for measuring green leaf area
+2. **AreaCalculationUsingBOfLabForStem.txt** - Macro for measuring yellow stem area
 
-- [ImageJ](https://imagej.nih.gov/ij/) または [Fiji](https://fiji.sc/)
-- 画像ファイル（JPG, PNG, TIF, BMP, GIF形式対応）
+## Required Software
 
-## マクロの使い方（ステップバイステップ）
+- [ImageJ](https://imagej.nih.gov/ij/) or [Fiji](https://fiji.sc/)
+- Image files (JPG, PNG, TIF, BMP, GIF formats supported)
 
-### 準備作業
+## How to Use the Macros
 
-#### 1. ImageJのインストール
-1. [ImageJ公式サイト](https://imagej.nih.gov/ij/)からImageJをダウンロード
-2. ダウンロードしたファイルを実行してインストール
-3. ImageJを起動
+### Preparation
 
-#### 2. マクロのインストール
-1. ImageJを起動する
-2. **Plugins** → **Macros** → **Install**をクリック
-3. 保存したマクロファイル（`AreaCalculationExG.txt`または`AreaCalculationUsingBOfLabForStem.txt`）を選択
-4. マクロがインストールされる
+#### 1. Install ImageJ
+1. Download ImageJ from the [official website](https://imagej.nih.gov/ij/)
+2. Run the downloaded file to install
+3. Launch ImageJ
 
-#### 3. 画像の準備
-- 解析したい画像を`LeavesImages`（葉用）または`StemsImages`（茎用）フォルダに保存
-- 画像には10cmの定規やスケールバーが含まれていることを確認
+#### 2. Install the Macros
+1. Launch ImageJ
+2. Click **Plugins** → **Macros** → **Install**
+3. Select the saved macro file (`AreaCalculationExG.txt` or `AreaCalculationUsingBOfLabForStem.txt`)
+4. The macro will be installed
 
-### 緑色葉面積測定マクロの使用方法
+#### 3. Prepare Images
+- Save images to be analyzed in `LeavesImages` (for leaves) or `StemsImages` (for stems) folders
+- Ensure images contain a 10cm ruler or scale bar
 
-#### 1. マクロの起動
-1. **Plugins** → **Macros**をクリック
-2. インストールしたマクロ（`AreaCalculationExG`）をクリック
-3. マクロが起動する
+### How to Use the Green Leaf Area Measurement Macro
 
-#### 2. フォルダの選択
-1. マクロが起動すると、フォルダ選択ダイアログが表示される
-2. 自分のPCに保存した`LeavesImages`フォルダを選択して開く
-3. **OK**をクリック
+#### 1. Launch the Macro
+1. Click **Plugins** → **Macros**
+2. Click the installed macro (`AreaCalculationExG`)
+3. The macro will start
 
-#### 3. 画像処理の実行
-フォルダ内の画像がすべて処理されるまで以下の手順を繰り返します：
+#### 2. Select Folder
+1. When the macro starts, a folder selection dialog will appear
+2. Select the `LeavesImages` folder saved on your PC and open it
+3. Click **OK**
 
-##### 3-1. 画像の拡大縮小
-- フォルダ内の画像が開く
-- **Ctrl**を押しながらマウスのホイールを回して画像を拡大縮小する
-- 定規の10cmの部分が見やすい大きさになるまで調整
+#### 3. Execute Image Processing
+Repeat the following steps until all images in the folder are processed:
 
-##### 3-2. スケール設定
-1. 定規の10cmの部分を見つける
-2. 左クリック→ドラッグ＆リリースで10cmの線を引く
-3. **OK**をクリックするとスケールが設定される
+##### 3-1. Zoom In/Out Image
+- Images in the folder will open
+- Hold **Ctrl** and scroll the mouse wheel to zoom in/out the image
+- Adjust until the 10cm ruler part is at a comfortable size
 
-##### 3-3. ROI（関心領域）の選択
-1. 測定対象の葉がすべて入るようなポリゴンを描く
-2. 左クリックで頂点を複数作成していく
-3. 最初の頂点上で左クリックをしてポリゴンを閉じる
-4. **OK**をクリックする
+##### 3-2. Set Scale
+1. Find the 10cm part of the ruler
+2. Left-click and drag to draw a 10cm line, then release
+3. Click **OK** to set the scale
 
-##### 3-4. 閾値調整
-1. 自動で閾値が設定され、選択された範囲が赤色になる
-2. **Threshold**のスライダーを左右に動かして、葉がなるべく正確に含まれるように閾値を設定する
-3. **OK**をクリックする
+##### 3-3. Select ROI (Region of Interest)
+1. Draw a polygon that includes all leaves to be measured
+2. Left-click to create multiple vertices
+3. Left-click on the first vertex to close the polygon
+4. Click **OK**
 
-#### 4. 結果の保存
-- `LeavesImages`フォルダ内に測定結果が記録された`green_leaf_area_ExG.csv`ファイルが保存される
+##### 3-4. Adjust Threshold
+1. Threshold will be set automatically and the selected area will turn red
+2. Move the **Threshold** slider left and right to set the threshold so that leaves are included as accurately as possible
+3. Click **OK**
 
-### 黄色茎面積測定マクロの使用方法
+#### 4. Save Results
+- Measurement results will be saved as `green_leaf_area_ExG.csv` file in the `LeavesImages` folder
 
-#### 1. マクロの起動
-1. **Plugins** → **Macros**をクリック
-2. インストールしたマクロ（`AreaCalculationUsingBOfLabForStem`）をクリック
-3. マクロが起動する
+### How to Use the Yellow Stem Area Measurement Macro
 
-#### 2. フォルダの選択
-1. マクロが起動すると、フォルダ選択ダイアログが表示される
-2. 自分のPCに保存した`StemsImages`フォルダを選択して開く
-3. **OK**をクリック
+#### 1. Launch the Macro
+1. Click **Plugins** → **Macros**
+2. Click the installed macro (`AreaCalculationUsingBOfLabForStem`)
+3. The macro will start
 
-#### 3. 画像処理の実行
-フォルダ内の画像がすべて処理されるまで以下の手順を繰り返します：
+#### 2. Select Folder
+1. When the macro starts, a folder selection dialog will appear
+2. Select the `StemsImages` folder saved on your PC and open it
+3. Click **OK**
 
-##### 3-1. 画像の拡大縮小
-- フォルダ内の画像が開く
-- **Ctrl**を押しながらマウスのホイールを回して画像を拡大縮小する
-- 定規の10cmの部分が見やすい大きさになるまで調整
+#### 3. Execute Image Processing
+Repeat the following steps until all images in the folder are processed:
 
-##### 3-2. スケール設定
-1. 定規の10cmの部分を見つける
-2. 左クリック→ドラッグ＆リリースで10cmの線を引く
-3. **OK**をクリックするとスケールが設定される
+##### 3-1. Zoom In/Out Image
+- Images in the folder will open
+- Hold **Ctrl** and scroll the mouse wheel to zoom in/out the image
+- Adjust until the 10cm ruler part is at a comfortable size
 
-##### 3-3. ROI（関心領域）の選択
-1. 測定対象の茎がすべて入るようなポリゴンを描く
-2. 左クリックで頂点を複数作成していく
-3. 最初の頂点上で左クリックをしてポリゴンを閉じる
-4. **OK**をクリックする
+##### 3-2. Set Scale
+1. Find the 10cm part of the ruler
+2. Left-click and drag to draw a 10cm line, then release
+3. Click **OK** to set the scale
 
-##### 3-4. 閾値調整
-1. 自動で閾値が設定され、選択された範囲が赤色になる
-2. **Threshold**のスライダーを左右に動かして、茎がなるべく正確に含まれるように閾値を設定する
-3. **OK**をクリックする
+##### 3-3. Select ROI (Region of Interest)
+1. Draw a polygon that includes all stems to be measured
+2. Left-click to create multiple vertices
+3. Left-click on the first vertex to close the polygon
+4. Click **OK**
 
-#### 4. 結果の保存
-- `StemsImages`フォルダ内に測定結果が記録された`yellow_area_lab_b.csv`ファイルが保存される
+##### 3-4. Adjust Threshold
+1. Threshold will be set automatically and the selected area will turn red
+2. Move the **Threshold** slider left and right to set the threshold so that stems are included as accurately as possible
+3. Click **OK**
 
-## マクロの特徴
+#### 4. Save Results
+- Measurement results will be saved as `yellow_area_lab_b.csv` file in the `StemsImages` folder
 
-### ExGマクロの特徴
-- **ExG指数**: 2G - R - B の計算式を使用
-- **緑色検出**: 植物の緑色部分を効率的に検出
-- **手動調整**: 閾値を手動で調整可能
+## Macro Features
 
-### Lab bチャンネルマクロの特徴
-- **Lab色空間**: より正確な色分離が可能
-- **bチャンネル**: 黄色-青色軸での色分離
-- **茎検出**: 黄色い茎部分の検出に特化
+### ExG Macro Features
+- **ExG Index**: Uses the formula 2G - R - B
+- **Green Detection**: Efficiently detects green parts of plants
+- **Manual Adjustment**: Threshold can be adjusted manually
 
-## 使用上の注意点
+### Lab b-channel Macro Features
+- **Lab Color Space**: Enables more accurate color separation
+- **b-channel**: Color separation on yellow-blue axis
+- **Stem Detection**: Specialized for detecting yellow stem parts
 
-1. **スケール設定**: 必ず10cmの基準線を正確に描画してください
-2. **ROI選択**: 解析したい領域のみを選択し、背景を除外してください
-3. **閾値調整**: 自動閾値が適切でない場合は、手動で調整してください
-4. **ファイル形式**: 対応している画像形式のみ処理可能です
+## Important Notes
 
-## トラブルシューティング
+1. **Scale Setting**: Always draw the 10cm reference line accurately
+2. **ROI Selection**: Select only the area to be analyzed and exclude the background
+3. **Threshold Adjustment**: Adjust manually if the automatic threshold is not appropriate
+4. **File Format**: Only supported image formats can be processed
 
-### よくある問題と解決方法
+## Troubleshooting
 
-1. **マクロが実行されない**
-   - ImageJのバージョンを確認してください
-   - マクロファイルが正しくインストールされているか確認してください
+### Common Problems and Solutions
 
-2. **結果が正しくない**
-   - スケール設定が正しく行われているか確認してください
-   - ROI選択が適切か確認してください
-   - 閾値調整を再確認してください
+1. **Macro doesn't run**
+   - Check if the macro file is properly installed
 
-3. **ファイルが保存されない**
-   - 出力フォルダの書き込み権限を確認してください
-   - ファイル名に特殊文字が含まれていないか確認してください
+2. **Results are incorrect**
+   - Check if the scale setting is done correctly
+   - Check if the ROI selection is appropriate
+   - Recheck the threshold adjustment
 
-## ライセンス
+3. **Files are not saved**
+   - Check the write permission of the output folder
+   - Check if the filename contains special characters
 
-このプロジェクトはMITライセンスの下で公開されています。
+## License
 
-## 貢献
+This project is published under the MIT License.
 
-バグ報告や機能改善の提案は、IssuesまたはPull Requestsでお願いします。
+## Contributing
 
-## 更新履歴
+Please use Issues or Pull Requests for bug reports and feature improvement suggestions.
 
-- v1.0.0: 初期バージョン
-  - ExGマクロ追加
-  - Lab bチャンネルマクロ追加
+## Update History
+
+- v1.0.0: Initial version
+  - Added ExG macro
+  - Added Lab b-channel macro
