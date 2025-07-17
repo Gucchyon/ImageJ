@@ -1,0 +1,31 @@
+# ImageJ output files
+*.csv
+*.txt
+*.log
+
+# ImageJ temporary files
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*.bak
+*.backup
+
+# Sample data (if any)
+sample_images/
+test_data/ 
