@@ -25,13 +25,20 @@ This repository contains the following two ImageJ macros:
 2. Run the downloaded file to install
 3. Launch ImageJ
 
-#### 2. Install the Macros
+#### 2. Download Macro Files
+1. Download the macro files from this repository:
+   - Click on the `macros` folder in this repository
+   - Download `AreaCalculationExG.txt` (for green leaf area measurement)
+   - Download `AreaCalculationUsingBOfLabForStem.txt` (for yellow stem area measurement)
+2. Save these files to a location on your PC where you can easily find them
+
+#### 3. Install the Macros
 1. Launch ImageJ
 2. Click **Plugins** → **Macros** → **Install**
 3. Select the saved macro file (`AreaCalculationExG.txt` or `AreaCalculationUsingBOfLabForStem.txt`)
 4. The macro will be installed
 
-#### 3. Prepare Images
+#### 4. Prepare Images
 - Save images to be analyzed in `LeavesImages` (for leaves) or `StemsImages` (for stems) folders
 - Ensure images contain a 10cm ruler or scale bar
 

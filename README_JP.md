@@ -24,13 +24,20 @@
 2. ダウンロードしたファイルを実行してインストール
 3. ImageJを起動
 
-#### 2. マクロのインストール
+#### 2. マクロファイルのダウンロード
+1. このリポジトリからマクロファイルをダウンロード：
+   - このリポジトリの`macros`フォルダをクリック
+   - `AreaCalculationExG.txt`（緑色葉面積測定用）をダウンロード
+   - `AreaCalculationUsingBOfLabForStem.txt`（黄色茎面積測定用）をダウンロード
+2. これらのファイルをPCの見つけやすい場所に保存
+
+#### 3. マクロのインストール
 1. ImageJを起動する
 2. **Plugins** → **Macros** → **Install**をクリック
 3. 保存したマクロファイル（`AreaCalculationExG.txt`または`AreaCalculationUsingBOfLabForStem.txt`）を選択
 4. マクロがインストールされる
 
-#### 3. 画像の準備
+#### 4. 画像の準備
 - 解析したい画像を`LeavesImages`（葉用）または`StemsImages`（茎用）フォルダに保存
 - 画像には10cmの定規やスケールバーが含まれていることを確認
 
